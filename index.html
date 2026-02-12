@@ -26,47 +26,56 @@
             overflow: hidden;
         }
 
-        /* --- พุ่มดอกไม้ที่มุมจอ (วาดด้วย CSS) --- */
+        /* --- พุ่มดอกไม้ขนาดใหญ่ (วาดด้วย CSS) --- */
         .flower-bush {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 250px; /* ขยายขนาดพื้นที่พุ่ม */
+            height: 250px;
             z-index: 2;
+            pointer-events: none;
         }
-        .top-l { top: 0; left: 0; transform: rotate(0deg); }
-        .top-r { top: 0; right: 0; transform: rotate(90deg); }
-        .bot-l { bottom: 0; left: 0; transform: rotate(-90deg); }
-        .bot-r { bottom: 0; right: 0; transform: rotate(180deg); }
+        .top-l { top: -20px; left: -20px; transform: rotate(0deg); }
+        .top-r { top: -20px; right: -20px; transform: rotate(90deg); }
+        .bot-l { bottom: -20px; left: -20px; transform: rotate(-90deg); }
+        .bot-r { bottom: -20px; right: -20px; transform: rotate(180deg); }
 
+        .flower-group {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ตัวดอกไม้หลักที่ขยายใหญ่ขึ้น */
         .flower {
             position: absolute;
-            width: 30px;
-            height: 30px;
+            width: 50px; /* ขนาดใหญ่ขึ้น */
+            height: 50px;
             background: var(--primary-color);
             border-radius: 50%;
-            box-shadow: 15px 0 0 var(--primary-color), -15px 0 0 var(--primary-color), 
-                        0 15px 0 var(--primary-color), 0 -15px 0 var(--primary-color);
-            z-index: 3;
+            box-shadow: 25px 0 0 var(--primary-color), -25px 0 0 var(--primary-color), 
+                        0 25px 0 var(--primary-color), 0 -25px 0 var(--primary-color);
         }
         .flower::after {
             content: '';
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 10px; height: 10px;
+            width: 18px; height: 18px;
             background: #ffeb3b;
             border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
         }
 
-        .leaf {
+        .leaf-big {
             position: absolute;
-            width: 40px; height: 20px;
+            width: 80px; height: 40px;
             background: var(--leaf-color);
-            border-radius: 50% 0;
+            border-radius: 100% 0;
             transform: rotate(-45deg);
+            opacity: 0.8;
         }
 
-        /* --- เอฟเฟกต์ละอองดาวพื้นหลัง --- */
+        /* --- เอฟเฟกต์ละอองดาว --- */
         .star {
             position: absolute;
             background: white;
@@ -77,7 +86,7 @@
 
         @keyframes twinkle {
             from { opacity: 0.2; transform: scale(0.8); }
-            to { opacity: 0.8; transform: scale(1.2); }
+            to { opacity: 0.9; transform: scale(1.3); }
         }
 
         /* --- ซองจดหมาย --- */
@@ -86,9 +95,9 @@
             cursor: pointer;
             z-index: 10;
             transition: all 0.5s ease-in-out;
-            width: 300px;
-            height: 200px;
-            margin-top: 180px; /* เลื่อนลงมาเผื่อระยะเด้ง */
+            width: 320px;
+            height: 220px;
+            margin-top: 200px;
         }
 
         @media (min-width: 768px) {
@@ -96,23 +105,23 @@
         }
 
         .envelope-wrapper.open {
-            transform: scale(1.1) translateY(100px); 
+            transform: scale(1.1) translateY(120px); 
         }
 
         .envelope {
             position: relative;
             width: 100%; height: 100%;
             background-color: var(--envelope-color);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
         .envelope::before {
             content: "";
             position: absolute; top: 0; z-index: 4;
-            border-top: 130px solid var(--primary-color);
-            border-left: 150px solid transparent; border-right: 150px solid transparent;
+            border-top: 140px solid var(--primary-color);
+            border-left: 160px solid transparent; border-right: 160px solid transparent;
             transform-origin: top;
             transition: transform 0.5s 0.2s ease-in-out;
         }
@@ -120,47 +129,47 @@
         .envelope::after {
             content: "";
             position: absolute; z-index: 3; width: 0; height: 0;
-            border-top: 100px solid transparent;
-            border-right: 150px solid #ff8fa3;
-            border-bottom: 100px solid #ff8fa3;
-            border-left: 150px solid #ff758f;
-            border-radius: 0 0 10px 10px;
+            border-top: 115px solid transparent;
+            border-right: 160px solid #ff8fa3;
+            border-bottom: 115px solid #ff8fa3;
+            border-left: 160px solid #ff758f;
+            border-radius: 0 0 15px 15px;
         }
 
         .letter {
             position: absolute; bottom: 5px; left: 5%; width: 90%; height: 90%;
             background: var(--paper-color);
-            text-align: center; padding: 20px 10px; box-sizing: border-box;
+            text-align: center; padding: 25px 12px; box-sizing: border-box;
             transition: transform 0.7s ease-in-out;
-            z-index: 2; border-radius: 5px; overflow-y: auto;
+            z-index: 2; border-radius: 8px; overflow-y: auto;
         }
 
-        .letter h2 { color: var(--primary-color); font-size: 1.1rem; margin: 0 0 10px 0; }
-        .letter p { font-size: 0.9rem; color: #444; line-height: 1.6; margin: 8px 0; }
+        .letter h2 { color: var(--primary-color); font-size: 1.2rem; margin: 0 0 12px 0; }
+        .letter p { font-size: 0.95rem; color: #444; line-height: 1.7; margin: 10px 0; }
 
         .heart-icon {
-            position: absolute; top: 50%; left: 50%; width: 40px; height: 40px;
+            position: absolute; top: 50%; left: 50%; width: 45px; height: 45px;
             background: #ff85a1; z-index: 5;
             transform: translate(-50%, -20%) rotate(45deg);
-            transition: 0.3s; border: 2px solid white;
+            transition: 0.3s; border: 2.5px solid white;
         }
         .heart-icon::before, .heart-icon::after {
-            content: ""; position: absolute; width: 40px; height: 40px;
+            content: ""; position: absolute; width: 45px; height: 45px;
             background: #ff85a1; border-radius: 50%;
         }
-        .heart-icon::before { top: -20px; left: 0; }
-        .heart-icon::after { left: -20px; top: 0; }
+        .heart-icon::before { top: -23px; left: 0; }
+        .heart-icon::after { left: -23px; top: 0; }
 
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
         .envelope-wrapper.open .letter { 
-            transform: translateY(-250px); /* ระยะที่พอดีกับ iPad */
-            height: 380px; 
+            transform: translateY(-280px); 
+            height: 400px; 
             z-index: 6; 
         }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
         .instruction {
-            position: absolute; bottom: 40px; color: #d63384;
+            position: absolute; bottom: 30px; color: #d63384;
             font-weight: bold; animation: blink 2s infinite; z-index: 11;
         }
 
@@ -171,10 +180,22 @@
 
     <iframe id="youtubePlayer" width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
 
-    <div class="flower-bush top-l"><div class="flower" style="top:20px; left:20px;"></div><div class="leaf" style="top:50px; left:10px;"></div></div>
-    <div class="flower-bush top-r"><div class="flower" style="top:20px; right:20px;"></div><div class="leaf" style="top:50px; right:10px;"></div></div>
-    <div class="flower-bush bot-l"><div class="flower" style="bottom:20px; left:20px;"></div></div>
-    <div class="flower-bush bot-r"><div class="flower" style="bottom:20px; right:20px;"></div></div>
+    <div class="flower-bush top-l">
+        <div class="leaf-big" style="top:80px; left:20px; transform:rotate(20deg);"></div>
+        <div class="flower" style="top:40px; left:40px;"></div>
+        <div class="flower" style="top:100px; left:80px; transform:scale(0.7);"></div>
+    </div>
+    <div class="flower-bush top-r">
+        <div class="leaf-big" style="top:80px; right:20px; transform:rotate(-20deg);"></div>
+        <div class="flower" style="top:40px; right:40px;"></div>
+        <div class="flower" style="top:100px; right:80px; transform:scale(0.7);"></div>
+    </div>
+    <div class="flower-bush bot-l">
+        <div class="flower" style="bottom:40px; left:40px;"></div>
+    </div>
+    <div class="flower-bush bot-r">
+        <div class="flower" style="bottom:40px; right:40px;"></div>
+    </div>
 
     <div class="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -195,11 +216,11 @@
     <div class="instruction">ลองกดดูจิ ❤️</div>
 
     <script>
-        // สร้างดาวพื้นหลัง
-        for (let i = 0; i < 40; i++) {
+        // สร้างดาวพื้นหลังให้แน่นขึ้น
+        for (let i = 0; i < 50; i++) {
             let star = document.createElement('div');
             star.className = 'star';
-            star.style.width = Math.random() * 4 + 'px';
+            star.style.width = Math.random() * 5 + 'px';
             star.style.height = star.style.width;
             star.style.left = Math.random() * 100 + 'vw';
             star.style.top = Math.random() * 100 + 'vh';
