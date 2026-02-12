@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* --- ของตกแต่งรอบๆ (กระต่ายและดอกไม้) --- */
+        /* --- ของตกแต่ง --- */
         .decor {
             position: absolute;
             user-select: none;
@@ -39,7 +39,6 @@
             50% { transform: translateY(-20px) rotate(10deg); }
         }
 
-        /* --- หัวใจลอย --- */
         .falling-heart {
             position: absolute;
             top: -20px;
@@ -53,20 +52,25 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* --- Envelope Wrapper (ปรับตำแหน่งให้ต่ำลงมา) --- */
+        /* --- Envelope Wrapper (ปรับให้ซองอยู่ต่ำลงเพื่อให้เห็นหัวจดหมายเวลาเปิด) --- */
         .envelope-wrapper {
             position: relative;
             cursor: pointer;
             z-index: 10;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 350px;
-            height: 250px;
-            margin-top: 100px; /* เลื่อนตำแหน่งซองลงมาเผื่อเวลาจดหมายเด้งขึ้น */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            width: 320px;
+            height: 220px;
+            margin-top: 150px; /* เพิ่มระยะห่างจากขอบบน */
         }
 
+        /* ปรับขนาดสำหรับ iPad */
         @media (min-width: 768px) {
-            .envelope-wrapper { transform: scale(1.2); }
-            .envelope-wrapper.open { transform: scale(1.1) translateY(50px); } /* เลื่อนลงเล็กน้อยตอนเปิดเพื่อให้เห็นข้อความบนสุด */
+            .envelope-wrapper { transform: scale(1.3); }
+        }
+
+        /* เมื่อเปิดซอง ให้ตัวซองขยับลงมาอีกนิด เพื่อให้เห็นหัวจดหมาย Happy Valentine */
+        .envelope-wrapper.open {
+            transform: scale(1.1) translateY(80px); 
         }
 
         .envelope {
@@ -76,7 +80,7 @@
             background-color: var(--envelope-color);
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
         .envelope::before {
@@ -84,11 +88,11 @@
             position: absolute;
             top: 0;
             z-index: 4;
-            border-top: 160px solid var(--primary-color);
-            border-left: 175px solid transparent;
-            border-right: 175px solid transparent;
+            border-top: 140px solid var(--primary-color);
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
             transform-origin: top;
-            transition: transform 0.6s 0.4s ease-in-out;
+            transition: transform 0.5s 0.2s ease-in-out;
         }
 
         .envelope::after {
@@ -97,46 +101,46 @@
             z-index: 3;
             width: 0;
             height: 0;
-            border-top: 125px solid transparent;
-            border-right: 175px solid #ff8fa3;
-            border-bottom: 125px solid #ff8fa3;
-            border-left: 175px solid #ff758f;
+            border-top: 110px solid transparent;
+            border-right: 160px solid #ff8fa3;
+            border-bottom: 110px solid #ff8fa3;
+            border-left: 160px solid #ff758f;
             border-radius: 0 0 15px 15px;
         }
 
         .letter {
             position: absolute;
-            bottom: 10px;
+            bottom: 5px;
             left: 5%;
             width: 90%;
             height: 90%;
             background: var(--paper-color);
             text-align: center;
-            padding: 25px 15px;
+            padding: 20px 15px;
             box-sizing: border-box;
-            transition: transform 0.8s ease-in-out;
+            transition: transform 0.7s ease-in-out;
             z-index: 2;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             overflow-y: auto;
         }
 
-        .letter h2 { color: var(--primary-color); font-size: 1.2rem; margin-top: 0; }
-        .letter p { font-size: 0.95rem; color: #444; line-height: 1.7; margin: 10px 0; }
+        .letter h2 { color: var(--primary-color); font-size: 1.3rem; margin-top: 0; margin-bottom: 15px; }
+        .letter p { font-size: 1rem; color: #444; line-height: 1.6; margin: 10px 0; }
 
-        /* --- หัวใจตรงกลางซอง (ปรับสีให้นวลขึ้น) --- */
+        /* หัวใจตรงกลางซอง */
         .heart-icon {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 45px;
             height: 45px;
-            background: #ff85a1; /* สีชมพูที่อ่อนลงเล็กน้อย */
+            background: #ff85a1;
             z-index: 5;
             transform: translate(-50%, -20%) rotate(45deg);
-            transition: 0.4s;
+            transition: 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 2px solid white; /* เพิ่มขอบขาวให้ดูเด่นขึ้น */
+            border: 2px solid white;
         }
 
         .heart-icon::before, .heart-icon::after {
@@ -150,11 +154,11 @@
         .heart-icon::before { top: -23px; left: 0; }
         .heart-icon::after { left: -23px; top: 0; }
 
-        /* --- Animation เมื่อเปิด --- */
+        /* --- พิกัดการเลื่อนจดหมายตอนเปิด --- */
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
         .envelope-wrapper.open .letter { 
-            transform: translateY(-220px); /* ดึงขึ้นมาในระดับที่พอดีกับสายตา */
-            height: 380px; 
+            transform: translateY(-260px); /* เลื่อนขึ้นในระยะที่พอดี */
+            height: 350px; 
             z-index: 6; 
         }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
@@ -175,10 +179,10 @@
 
     <iframe id="youtubePlayer" width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
 
-    <div class="decor" style="top: 10%; left: 10%; font-size: 40px;">🐰</div>
-    <div class="decor" style="top: 15%; right: 15%; font-size: 45px;">💐</div>
-    <div class="decor" style="bottom: 20%; left: 15%; font-size: 45px;">💐</div>
-    <div class="decor" style="bottom: 15%; right: 10%; font-size: 40px;">🐰</div>
+    <div class="decor" style="top: 10%; left: 8%; font-size: 50px;">🐰</div>
+    <div class="decor" style="top: 12%; right: 8%; font-size: 55px;">💐</div>
+    <div class="decor" style="bottom: 15%; left: 10%; font-size: 55px;">💐</div>
+    <div class="decor" style="bottom: 12%; right: 10%; font-size: 50px;">🐰</div>
 
     <div class="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -223,7 +227,7 @@
             setTimeout(() => { heart.remove(); }, 5000);
         }
 
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 350);
     </script>
 </body>
 </html>
