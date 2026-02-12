@@ -21,7 +21,7 @@
             height: 100vh;
             background-color: var(--bg-color);
             font-family: 'Arial', sans-serif;
-            overflow: hidden; /* กันไม่ให้สกรูลจอเวลาหัวใจร่วง */
+            overflow: hidden;
         }
 
         /* --- เอฟเฟกต์หัวใจลอยลงมา --- */
@@ -37,9 +37,7 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
 
         /* --- โครงสร้างซองจดหมาย --- */
@@ -48,11 +46,10 @@
             cursor: pointer;
             z-index: 10;
             transition: transform 0.3s;
+            margin-top: 50px;
         }
 
-        .envelope-wrapper:hover {
-            transform: scale(1.05);
-        }
+        .envelope-wrapper:hover { transform: scale(1.05); }
 
         .envelope {
             position: relative;
@@ -91,21 +88,22 @@
 
         .letter {
             position: absolute;
-            bottom: 0;
-            left: 10%;
-            width: 80%;
-            height: 80%;
+            bottom: 5px;
+            left: 5%;
+            width: 90%;
+            height: 90%;
             background: var(--paper-color);
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             transition: transform 0.6s ease-in-out;
             z-index: 1;
             border-radius: 5px;
+            overflow-y: auto; /* เพิ่ม Scroll ถ้าข้อความยาว */
         }
 
-        .letter h2 { color: var(--primary-color); font-size: 1.1rem; }
-        .letter p { font-size: 0.85rem; color: #444; line-height: 1.4; }
+        .letter h2 { color: var(--primary-color); font-size: 1rem; margin-top: 0; }
+        .letter p { font-size: 0.8rem; color: #444; line-height: 1.5; margin: 8px 0; }
 
         .heart-icon {
             position: absolute;
@@ -132,20 +130,23 @@
 
         /* --- เมื่อกดเปิด --- */
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 0; }
-        .envelope-wrapper.open .letter { transform: translateY(-120px); z-index: 2; }
+        .envelope-wrapper.open .letter { 
+            transform: translateY(-160px); /* ดึงขึ้นมาสูงขึ้นหน่อย */
+            height: 250px; /* เพิ่มความสูงกระดาษ */
+            z-index: 5; 
+        }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
         .instruction {
             position: absolute;
-            bottom: 10%;
+            bottom: 8%;
             color: #d63384;
             font-weight: bold;
             animation: blink 1.5s infinite;
+            z-index: 11;
         }
 
-        @keyframes blink {
-            50% { opacity: 0.3; }
-        }
+        @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
@@ -157,12 +158,11 @@
             <div class="letter">
                 <h2>Happy Valentine! 💖</h2>
                 <p>ถึง... คุณแฟนอันดับ 1 ในใจเค้า</p>
-                <p>ขอบคุณที่ปีนี้ก็ยังอยู่กับเค้านะ<br>เค้าดีใจมากๆจริงๆที่มีคุณแฟนในชีวิต</p>
+                <p>ขอบคุณที่ปีนี้ก็ยังอยู่กับเค้านะ<br>เค้าดีใจมากๆ จริงๆ ที่มีคุณแฟนในชีวิต</p>
                 <p>ถึงจะมีทะเลาะกันบ้าง แต่ก็ดีใจนะที่ยังกลับมาคบกันน่ะ</p>
                 <p>เค้าอาจจะงี่เง่าทำตัวไม่ดีใส่คุณแฟน<br>เค้าขอโทษที่ไม่ใช่แฟนที่ดีที่สุดนะ</p>
                 <p>เค้าจะพยายามปรับปรุงตัวเองให้ดีที่สุด</p>
-                <p>ช่วยอยู่กับเค้าไปนานๆน้าา</p>
-
+                <p>ช่วยอยู่กับเค้าไปนานๆ น้าา</p>
                 <p><b>จาก... เกรซ คนที่รักคุณแฟนที่สุด</b></p>
             </div>
             <div class="heart-icon"></div>
@@ -176,25 +176,18 @@
             document.querySelector('.envelope-wrapper').classList.toggle('open');
         }
 
-        // ฟังก์ชันสร้างหัวใจร่วง
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // สุ่มความเร็ว 2-5 วินาที
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             heart.style.opacity = Math.random();
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            
             document.body.appendChild(heart);
-
-            // ลบหัวใจออกเมื่อร่วงจบจอเพื่อไม่ให้เครื่องอืด
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => { heart.remove(); }, 5000);
         }
 
-        // สร้างหัวใจทุกๆ 300 มิลลิวินาที
         setInterval(createHeart, 300);
     </script>
 </body>
