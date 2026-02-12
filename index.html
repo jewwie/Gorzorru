@@ -99,11 +99,11 @@
             transition: transform 0.6s ease-in-out;
             z-index: 1;
             border-radius: 5px;
-            overflow-y: auto; /* เพิ่ม Scroll ถ้าข้อความยาว */
+            overflow-y: auto; /* เพิ่ม Scroll ถ้าข้อความยาวเกิน */
         }
 
         .letter h2 { color: var(--primary-color); font-size: 1rem; margin-top: 0; }
-        .letter p { font-size: 0.8rem; color: #444; line-height: 1.5; margin: 8px 0; }
+        .letter p { font-size: 0.85rem; color: #444; line-height: 1.6; margin: 10px 0; }
 
         .heart-icon {
             position: absolute;
@@ -131,8 +131,8 @@
         /* --- เมื่อกดเปิด --- */
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 0; }
         .envelope-wrapper.open .letter { 
-            transform: translateY(-160px); /* ดึงขึ้นมาสูงขึ้นหน่อย */
-            height: 250px; /* เพิ่มความสูงกระดาษ */
+            transform: translateY(-160px); 
+            height: 300px; /* ยืดกระดาษให้ยาวขึ้น */
             z-index: 5; 
         }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
@@ -151,7 +151,7 @@
 </head>
 <body>
 
-    <iframe width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
+    <iframe id="youtubePlayer" width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
 
     <div class="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -172,10 +172,21 @@
     <div class="instruction">ลองกดดูจิ ❤️</div>
 
     <script>
+        let musicStarted = false;
+
         function openEnvelope() {
             document.querySelector('.envelope-wrapper').classList.toggle('open');
+            
+            // สั่งเล่นเพลงเมื่อมีการคลิก (แก้ปัญหา Browser บล็อกเพลง)
+            const iframe = document.getElementById('youtubePlayer');
+            if (!musicStarted && iframe) {
+                const currentSrc = iframe.src;
+                iframe.src = currentSrc + "&start=1"; 
+                musicStarted = true;
+            }
         }
 
+        // ฟังก์ชันสร้างหัวใจร่วง
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
