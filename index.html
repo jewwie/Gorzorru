@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️</title>
+    <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --bg-color: #ffccd5;
+            --envelope-color: #ff758f;
+            --paper-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* กันไม่ให้สกรูลจอเวลาหัวใจร่วง */
+        }
+
+        /* --- เอฟเฟกต์หัวใจลอยลงมา --- */
+        .falling-heart {
+            position: absolute;
+            top: -20px;
+            color: var(--primary-color);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* --- โครงสร้างซองจดหมาย --- */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: var(--envelope-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-top: 130px solid var(--primary-color);
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s 0.3s ease-in-out;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            width: 0;
+            height: 0;
+            border-top: 100px solid transparent;
+            border-right: 150px solid #ff8fa3;
+            border-bottom: 100px solid #ff8fa3;
+            border-left: 150px solid #ff758f;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: var(--paper-color);
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.6s ease-in-out;
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .letter h2 { color: var(--primary-color); font-size: 1.1rem; }
+        .letter p { font-size: 0.85rem; color: #444; line-height: 1.4; }
+
+        .heart-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            z-index: 4;
+            transform: translate(-50%, -20%) rotate(45deg);
+            transition: 0.3s;
+        }
+
+        .heart-icon::before, .heart-icon::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+        .heart-icon::before { top: -20px; left: 0; }
+        .heart-icon::after { left: -20px; top: 0; }
+
+        /* --- เมื่อกดเปิด --- */
+        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 0; }
+        .envelope-wrapper.open .letter { transform: translateY(-120px); z-index: 2; }
+        .envelope-wrapper.open .heart-icon { opacity: 0; }
+
+        .instruction {
+            position: absolute;
+            bottom: 10%;
+            color: #d63384;
+            font-weight: bold;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
+
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="letter">
+                <h2>Happy Valentine! 💖</h2>
+                <p>ถึง... คุณแฟนอันดับ 1 ในใจเค้า</p>
+                <p>ขอบคุณที่ปีนี้ก็ยังอยู่กับเค้านะ<br>เค้าดีใจมากๆจริงๆที่มีคุณแฟนในชีวิต</p>
+                <p>ถึงจะมีทะเลาะกันบ้าง แต่ก็ดีใจนะที่ยังกลับมาคบกันน่ะ</p>
+                <p>เค้าอาจจะงี่เง่าทำตัวไม่ดีใส่คุณแฟน<br>เค้าขอโทษที่ไม่ใช่แฟนที่ดีที่สุดนะ</p>
+                <p>เค้าจะพยายามปรับปรุงตัวเองให้ดีที่สุด</p>
+                <p>ช่วยอยู่กับเค้าไปนานๆน้าา</p>
+
+                <p><b>จาก... เกรซ คนที่รักคุณแฟนที่สุด</b></p>
+            </div>
+            <div class="heart-icon"></div>
+        </div>
+    </div>
+
+    <div class="instruction">ลองกดดูจิ ❤️</div>
+
+    <script>
+        function openEnvelope() {
+            document.querySelector('.envelope-wrapper').classList.toggle('open');
+        }
+
+        // ฟังก์ชันสร้างหัวใจร่วง
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // สุ่มความเร็ว 2-5 วินาที
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            
+            document.body.appendChild(heart);
+
+            // ลบหัวใจออกเมื่อร่วงจบจอเพื่อไม่ให้เครื่องอืด
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // สร้างหัวใจทุกๆ 300 มิลลิวินาที
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
