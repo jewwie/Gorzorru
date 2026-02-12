@@ -20,39 +20,60 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
+            /* เพิ่มขอบฟุ้งๆ รอบจอ */
+            background: radial-gradient(circle, var(--bg-grad-2) 0%, var(--bg-grad-1) 100%);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow: hidden;
         }
 
-        /* --- ของตกแต่ง --- */
-        .decor {
+        /* --- ของตกแต่งมุมจอ (Fixed Corner Decor) --- */
+        .corner-decor {
             position: absolute;
-            user-select: none;
-            pointer-events: none;
+            font-size: 60px;
+            z-index: 2;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            animation: gentle-move 4s ease-in-out infinite;
+        }
+        .top-left { top: 20px; left: 20px; }
+        .top-right { top: 20px; right: 20px; }
+        .bottom-left { bottom: 20px; left: 20px; }
+        .bottom-right { bottom: 20px; right: 20px; }
+
+        @keyframes gentle-move {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* --- ของตกแต่งกระจายรอบจอ --- */
+        .floating-extra {
+            position: absolute;
+            font-size: 25px;
+            opacity: 0.6;
             z-index: 1;
-            animation: float 6s ease-in-out infinite;
+            animation: float-around 10s linear infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+        @keyframes float-around {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 30px) rotate(10deg); }
+            50% { transform: translate(-10px, 50px) rotate(-10deg); }
+            75% { transform: translate(-30px, 20px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
         }
 
+        /* --- หัวใจร่วง --- */
         .falling-heart {
             position: absolute;
             top: -20px;
-            user-select: none;
-            pointer-events: none;
-            animation: fall linear forwards;
             z-index: 1;
+            animation: fall linear forwards;
         }
 
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* --- Envelope Wrapper (ปรับให้ซองอยู่ต่ำลงเพื่อให้เห็นหัวจดหมายเวลาเปิด) --- */
+        /* --- ตัวซองจดหมาย --- */
         .envelope-wrapper {
             position: relative;
             cursor: pointer;
@@ -60,15 +81,13 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
             width: 320px;
             height: 220px;
-            margin-top: 150px; /* เพิ่มระยะห่างจากขอบบน */
+            margin-top: 150px;
         }
 
-        /* ปรับขนาดสำหรับ iPad */
         @media (min-width: 768px) {
             .envelope-wrapper { transform: scale(1.3); }
         }
 
-        /* เมื่อเปิดซอง ให้ตัวซองขยับลงมาอีกนิด เพื่อให้เห็นหัวจดหมาย Happy Valentine */
         .envelope-wrapper.open {
             transform: scale(1.1) translateY(80px); 
         }
@@ -85,22 +104,16 @@
 
         .envelope::before {
             content: "";
-            position: absolute;
-            top: 0;
-            z-index: 4;
+            position: absolute; top: 0; z-index: 4;
             border-top: 140px solid var(--primary-color);
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
+            border-left: 160px solid transparent; border-right: 160px solid transparent;
             transform-origin: top;
             transition: transform 0.5s 0.2s ease-in-out;
         }
 
         .envelope::after {
             content: "";
-            position: absolute;
-            z-index: 3;
-            width: 0;
-            height: 0;
+            position: absolute; z-index: 3; width: 0; height: 0;
             border-top: 110px solid transparent;
             border-right: 160px solid #ff8fa3;
             border-bottom: 110px solid #ff8fa3;
@@ -109,67 +122,41 @@
         }
 
         .letter {
-            position: absolute;
-            bottom: 5px;
-            left: 5%;
-            width: 90%;
-            height: 90%;
+            position: absolute; bottom: 5px; left: 5%; width: 90%; height: 90%;
             background: var(--paper-color);
-            text-align: center;
-            padding: 20px 15px;
-            box-sizing: border-box;
+            text-align: center; padding: 25px 15px; box-sizing: border-box;
             transition: transform 0.7s ease-in-out;
-            z-index: 2;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            overflow-y: auto;
+            z-index: 2; border-radius: 10px; overflow-y: auto;
         }
 
         .letter h2 { color: var(--primary-color); font-size: 1.3rem; margin-top: 0; margin-bottom: 15px; }
-        .letter p { font-size: 1rem; color: #444; line-height: 1.6; margin: 10px 0; }
+        .letter p { font-size: 1rem; color: #444; line-height: 1.7; margin: 10px 0; }
 
-        /* หัวใจตรงกลางซอง */
         .heart-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 45px;
-            height: 45px;
-            background: #ff85a1;
-            z-index: 5;
+            position: absolute; top: 50%; left: 50%; width: 45px; height: 45px;
+            background: #ff85a1; z-index: 5;
             transform: translate(-50%, -20%) rotate(45deg);
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 2px solid white;
+            transition: 0.3s; border: 2.5px solid white;
         }
 
         .heart-icon::before, .heart-icon::after {
-            content: "";
-            position: absolute;
-            width: 45px;
-            height: 45px;
-            background: #ff85a1;
-            border-radius: 50%;
+            content: ""; position: absolute; width: 45px; height: 45px;
+            background: #ff85a1; border-radius: 50%;
         }
         .heart-icon::before { top: -23px; left: 0; }
         .heart-icon::after { left: -23px; top: 0; }
 
-        /* --- พิกัดการเลื่อนจดหมายตอนเปิด --- */
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
         .envelope-wrapper.open .letter { 
-            transform: translateY(-260px); /* เลื่อนขึ้นในระยะที่พอดี */
-            height: 350px; 
+            transform: translateY(-280px); 
+            height: 380px; 
             z-index: 6; 
         }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
         .instruction {
-            position: absolute;
-            bottom: 5%;
-            color: #d63384;
-            font-weight: bold;
-            animation: blink 2s infinite;
-            z-index: 11;
+            position: absolute; bottom: 5%; color: #d63384;
+            font-weight: bold; animation: blink 2s infinite; z-index: 11;
         }
 
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -179,10 +166,15 @@
 
     <iframe id="youtubePlayer" width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
 
-    <div class="decor" style="top: 10%; left: 8%; font-size: 50px;">🐰</div>
-    <div class="decor" style="top: 12%; right: 8%; font-size: 55px;">💐</div>
-    <div class="decor" style="bottom: 15%; left: 10%; font-size: 55px;">💐</div>
-    <div class="decor" style="bottom: 12%; right: 10%; font-size: 50px;">🐰</div>
+    <div class="corner-decor top-left">🐰</div>
+    <div class="corner-decor top-right">💐</div>
+    <div class="corner-decor bottom-left">💐</div>
+    <div class="corner-decor bottom-right">🐰</div>
+
+    <div class="floating-extra" style="top: 25%; left: 20%;">✨</div>
+    <div class="floating-extra" style="top: 40%; right: 15%;">💖</div>
+    <div class="floating-extra" style="bottom: 30%; left: 10%;">⭐</div>
+    <div class="floating-extra" style="top: 15%; left: 45%;">🎀</div>
 
     <div class="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -218,7 +210,7 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
-            heart.innerHTML = (Math.random() > 0.5) ? '❤️' : '💖';
+            heart.innerHTML = (Math.random() > 0.5) ? '❤️' : '🌸';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             heart.style.opacity = Math.random() * 0.7 + 0.3;
