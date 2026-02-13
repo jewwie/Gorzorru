@@ -17,6 +17,7 @@
             margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
             height: 100vh; background: radial-gradient(circle, var(--bg-grad-2) 0%, var(--bg-grad-1) 100%);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden;
+            touch-action: manipulation;
         }
 
         /* --- ตกแต่งพุ่มดอกไม้ --- */
@@ -78,18 +79,13 @@
         .envelope-wrapper.open .letter { transform: translateY(-240px); height: 350px; z-index: 6; }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
-        .instruction { position: absolute; bottom: 30px; color: #d63384; font-weight: bold; animation: blink 2s infinite; z-index: 11; }
+        .instruction { position: absolute; bottom: 30px; color: #d63384; font-weight: bold; animation: blink 2s infinite; z-index: 11; text-align: center; }
         @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <div id="player-container">
-        <iframe id="youtubePlayer" width="0" height="0" 
-            src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo&mute=1" 
-            frameborder="0" allow="autoplay; encrypted-media" style="display:none">
-        </iframe>
-    </div>
+    <div id="player"></div>
 
     <div class="flower-bush top-l"><div class="flower" style="top:20px; left:20px;"></div></div>
     <div class="flower-bush top-r"><div class="flower" style="top:20px; right:20px;"></div></div>
@@ -110,26 +106,48 @@
         </div>
     </div>
 
-    <div class="instruction">จิ้มเพื่อเปิดหัวใจนะ ❤️<br>(เพลงจะดังเมื่อกดเปิดจ้า)</div>
+    <div class="instruction">จิ้มเพื่อเปิดหัวใจนะ ❤️<br>(จิ้มแล้วรอเพลงแป๊บนึงน้า)</div>
 
     <script>
-        let musicStarted = false;
+        // โหลด YouTube IFrame API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'afPnIMti1oo', // ID เพลง
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'afPnIMti1oo',
+                    'playsinline': 1 // สำคัญมากสำหรับ iPhone
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // พร้อมเล่นแต่ยังไม่เล่นจนกว่าจะกด
+        }
+
+        let musicStarted = false;
         function openEnvelope() {
             document.querySelector('.envelope-wrapper').classList.toggle('open');
             
-            // แก้ไขปัญหาเพลงในมือถือ:
-            const iframe = document.getElementById('youtubePlayer');
-            if (!musicStarted && iframe) {
-                // เปลี่ยน src เพื่อยกเลิก Mute และบังคับ Play หลังจากมีการสัมผัสหน้าจอ
-                let currentSrc = iframe.src;
-                let newSrc = currentSrc.replace("mute=1", "mute=0");
-                iframe.src = newSrc;
+            if (!musicStarted && player && player.playVideo) {
+                player.playVideo();
                 musicStarted = true;
             }
         }
 
-        // สร้างหัวใจลอยพื้นหลัง
+        // หัวใจลอย
         setInterval(() => {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
