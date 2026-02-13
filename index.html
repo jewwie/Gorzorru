@@ -10,207 +10,89 @@
             --bg-grad-1: #ffccd5;
             --bg-grad-2: #fff0f3;
             --envelope-color: #ff758f;
-            --paper-color: #ffffff;
-            --leaf-color: #71aa62;
+            --paper-color: #fff9fa;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: radial-gradient(circle, var(--bg-grad-2) 0%, var(--bg-grad-1) 100%);
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden;
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
+            height: 100vh; background: radial-gradient(circle, var(--bg-grad-2) 0%, var(--bg-grad-1) 100%);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden;
         }
 
-        /* --- พุ่มดอกไม้ขนาดใหญ่ (วาดด้วย CSS) --- */
-        .flower-bush {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .top-l { top: -20px; left: -20px; transform: rotate(0deg); }
-        .top-r { top: -20px; right: -20px; transform: rotate(90deg); }
-        .bot-l { bottom: -20px; left: -20px; transform: rotate(-90deg); }
-        .bot-r { bottom: -20px; right: -20px; transform: rotate(180deg); }
-
-        .flower-group {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
+        /* --- ตกแต่งพุ่มดอกไม้ --- */
+        .flower-bush { position: absolute; width: 150px; height: 150px; z-index: 2; pointer-events: none; }
+        .top-l { top: 0; left: 0; }
+        .top-r { top: 0; right: 0; transform: rotate(90deg); }
         .flower {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            box-shadow: 25px 0 0 var(--primary-color), -25px 0 0 var(--primary-color), 
-                        0 25px 0 var(--primary-color), 0 -25px 0 var(--primary-color);
+            position: absolute; width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%;
+            box-shadow: 20px 0 0 var(--primary-color), -20px 0 0 var(--primary-color), 0 20px 0 var(--primary-color), 0 -20px 0 var(--primary-color);
         }
-        .flower::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 18px; height: 18px;
-            background: #ffeb3b;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
-        }
+        .flower::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #ffeb3b; border-radius: 50%; }
 
-        .leaf-big {
-            position: absolute;
-            width: 80px; height: 40px;
-            background: var(--leaf-color);
-            border-radius: 100% 0;
-            transform: rotate(-45deg);
-            opacity: 0.8;
-        }
-
-        /* --- เอฟเฟกต์ละอองดาว --- */
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 2s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            from { opacity: 0.2; transform: scale(0.8); }
-            to { opacity: 0.9; transform: scale(1.3); }
-        }
-
-        /* --- หัวใจลอยพื้นหลัง --- */
-        .falling-heart {
-            position: absolute;
-            top: -20px;
-            color: var(--primary-color);
-            user-select: none;
-            pointer-events: none;
-            animation: fall linear forwards;
-            z-index: 0; /* ให้อยู่ด้านหลังสุด */
-            filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.3));
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+        /* --- หัวใจลอย --- */
+        .falling-heart { position: absolute; top: -20px; color: var(--primary-color); user-select: none; pointer-events: none; animation: fall linear forwards; z-index: 0; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         /* --- ซองจดหมาย --- */
         .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.5s ease-in-out;
-            width: 320px;
-            height: 220px;
-            margin-top: 200px;
+            position: relative; cursor: pointer; z-index: 10; transition: all 0.5s ease-in-out;
+            width: 280px; height: 180px; margin-top: 100px;
         }
-
-        @media (min-width: 768px) {
-            .envelope-wrapper { transform: scale(1.4); }
-        }
-
-        .envelope-wrapper.open {
-            transform: scale(1.1) translateY(120px); 
-        }
+        @media (min-width: 768px) { .envelope-wrapper { transform: scale(1.4); } }
+        .envelope-wrapper.open { transform: scale(1.1) translateY(80px); }
 
         .envelope {
-            position: relative;
-            width: 100%; height: 100%;
-            background-color: var(--envelope-color);
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative; width: 100%; height: 100%; background-color: var(--envelope-color);
+            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
-
         .envelope::before {
-            content: "";
-            position: absolute; top: 0; z-index: 4;
-            border-top: 140px solid var(--primary-color);
-            border-left: 160px solid transparent; border-right: 160px solid transparent;
-            transform-origin: top;
-            transition: transform 0.5s 0.2s ease-in-out;
+            content: ""; position: absolute; top: 0; z-index: 4; border-top: 120px solid var(--primary-color);
+            border-left: 140px solid transparent; border-right: 140px solid transparent;
+            transform-origin: top; transition: transform 0.5s 0.2s ease-in-out;
         }
-
         .envelope::after {
-            content: "";
-            position: absolute; z-index: 3; width: 0; height: 0;
-            border-top: 115px solid transparent;
-            border-right: 160px solid #ff8fa3;
-            border-bottom: 115px solid #ff8fa3;
-            border-left: 160px solid #ff758f;
-            border-radius: 0 0 15px 15px;
+            content: ""; position: absolute; z-index: 3; width: 0; height: 0;
+            border-top: 100px solid transparent; border-right: 140px solid #ff8fa3;
+            border-bottom: 100px solid #ff8fa3; border-left: 140px solid #ff758f; border-radius: 0 0 15px 15px;
         }
 
         .letter {
-            position: absolute; bottom: 5px; left: 5%; width: 90%; height: 90%;
-            background: var(--paper-color);
-            text-align: center; padding: 25px 12px; box-sizing: border-box;
-            transition: transform 0.7s ease-in-out;
-            z-index: 2; border-radius: 8px; overflow-y: auto;
+            position: absolute; bottom: 5px; left: 5%; width: 90%; height: 95%; background: var(--paper-color);
+            background-image: linear-gradient(#f1f1f1 1px, transparent 1px); background-size: 100% 25px;
+            text-align: center; padding: 30px 15px; box-sizing: border-box; transition: transform 0.7s ease-in-out;
+            z-index: 2; border-radius: 5px; box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.1); overflow-y: auto;
         }
 
-        .letter h2 { color: var(--primary-color); font-size: 1.2rem; margin: 0 0 12px 0; }
-        .letter p { font-size: 0.95rem; color: #444; line-height: 1.7; margin: 10px 0; }
+        .letter h2 { color: var(--primary-color); font-size: 1.2rem; margin: 0 0 10px 0; }
+        .letter p { font-size: 0.95rem; color: #4a4a4a; line-height: 1.7; margin: 10px 0; }
 
         .heart-icon {
-            position: absolute; top: 50%; left: 50%; width: 45px; height: 45px;
-            background: #ff85a1; z-index: 5;
-            transform: translate(-50%, -20%) rotate(45deg);
-            transition: 0.3s; border: 2.5px solid white;
+            position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; background: #ff85a1;
+            z-index: 5; transform: translate(-50%, -20%) rotate(45deg); border: 2px solid white;
         }
-        .heart-icon::before, .heart-icon::after {
-            content: ""; position: absolute; width: 45px; height: 45px;
-            background: #ff85a1; border-radius: 50%;
-        }
-        .heart-icon::before { top: -23px; left: 0; }
-        .heart-icon::after { left: -23px; top: 0; }
+        .heart-icon::before, .heart-icon::after { content: ""; position: absolute; width: 40px; height: 40px; background: #ff85a1; border-radius: 50%; }
+        .heart-icon::before { top: -20px; left: 0; }
+        .heart-icon::after { left: -20px; top: 0; }
 
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .letter { 
-            transform: translateY(-280px); 
-            height: 400px; 
-            z-index: 6; 
-        }
+        .envelope-wrapper.open .letter { transform: translateY(-240px); height: 350px; z-index: 6; }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
-        .instruction {
-            position: absolute; bottom: 30px; color: #d63384;
-            font-weight: bold; animation: blink 2s infinite; z-index: 11;
-        }
-
+        .instruction { position: absolute; bottom: 30px; color: #d63384; font-weight: bold; animation: blink 2s infinite; z-index: 11; }
         @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <iframe id="youtubePlayer" width="0" height="0" src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo" frameborder="0" allow="autoplay" style="display:none"></iframe>
+    <div id="player-container">
+        <iframe id="youtubePlayer" width="0" height="0" 
+            src="https://www.youtube.com/embed/afPnIMti1oo?enablejsapi=1&autoplay=1&loop=1&playlist=afPnIMti1oo&mute=1" 
+            frameborder="0" allow="autoplay; encrypted-media" style="display:none">
+        </iframe>
+    </div>
 
-    <div class="flower-bush top-l">
-        <div class="leaf-big" style="top:80px; left:20px; transform:rotate(20deg);"></div>
-        <div class="flower" style="top:40px; left:40px;"></div>
-        <div class="flower" style="top:100px; left:80px; transform:scale(0.7);"></div>
-    </div>
-    <div class="flower-bush top-r">
-        <div class="leaf-big" style="top:80px; right:20px; transform:rotate(-20deg);"></div>
-        <div class="flower" style="top:40px; right:40px;"></div>
-        <div class="flower" style="top:100px; right:80px; transform:scale(0.7);"></div>
-    </div>
-    <div class="flower-bush bot-l">
-        <div class="flower" style="bottom:40px; left:40px;"></div>
-    </div>
-    <div class="flower-bush bot-r">
-        <div class="flower" style="bottom:40px; right:40px;"></div>
-    </div>
+    <div class="flower-bush top-l"><div class="flower" style="top:20px; left:20px;"></div></div>
+    <div class="flower-bush top-r"><div class="flower" style="top:20px; right:20px;"></div></div>
 
     <div class="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -222,52 +104,42 @@
                 <p>เค้าอาจจะงี่เง่าทำตัวไม่ดีใส่คุณแฟน<br>เค้าขอโทษที่ไม่ใช่แฟนที่ดีที่สุดนะ</p>
                 <p>เค้าจะพยายามปรับปรุงตัวเองให้ดีที่สุด</p>
                 <p>ช่วยอยู่กับเค้าไปนานๆ น้าา</p>
-                <p><b>จาก... เกรซ คนที่รักคุณแฟนที่สุด</b></p>
+                <p><b>จาก... เกรซ ❤️</b></p>
             </div>
             <div class="heart-icon"></div>
         </div>
     </div>
 
-    <div class="instruction">ลองกดดูจิ ❤️</div>
+    <div class="instruction">จิ้มเพื่อเปิดหัวใจนะ ❤️<br>(เพลงจะดังเมื่อกดเปิดจ้า)</div>
 
     <script>
-        // สร้างดาวพื้นหลัง
-        for (let i = 0; i < 50; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 5 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(star);
-        }
-
-        // สร้างหัวใจลอย
-        function createFallingHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('falling-heart');
-            heart.innerHTML = '❤️'; /* สามารถเปลี่ยนเป็นอิโมจิอื่นได้ */
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            heart.style.opacity = Math.random() * 0.7 + 0.3;
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
-        setInterval(createFallingHeart, 350);
-
-
         let musicStarted = false;
+
         function openEnvelope() {
             document.querySelector('.envelope-wrapper').classList.toggle('open');
+            
+            // แก้ไขปัญหาเพลงในมือถือ:
             const iframe = document.getElementById('youtubePlayer');
             if (!musicStarted && iframe) {
-                const currentSrc = iframe.src;
-                iframe.src = currentSrc + "&start=1"; 
+                // เปลี่ยน src เพื่อยกเลิก Mute และบังคับ Play หลังจากมีการสัมผัสหน้าจอ
+                let currentSrc = iframe.src;
+                let newSrc = currentSrc.replace("mute=1", "mute=0");
+                iframe.src = newSrc;
                 musicStarted = true;
             }
         }
+
+        // สร้างหัวใจลอยพื้นหลัง
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 400);
     </script>
 </body>
 </html>
