@@ -20,24 +20,24 @@
             touch-action: manipulation;
         }
 
-        /* --- ตกแต่งพุ่มดอกไม้ --- */
-        .flower-bush { position: absolute; width: 150px; height: 150px; z-index: 2; pointer-events: none; }
-        .top-l { top: 0; left: 0; }
-        .top-r { top: 0; right: 0; transform: rotate(90deg); }
+        /* --- พุ่มดอกไม้ CSS มุมจอ --- */
+        .flower-bush { position: absolute; width: 180px; height: 180px; z-index: 2; pointer-events: none; }
+        .top-l { top: -20px; left: -20px; }
+        .top-r { top: -20px; right: -20px; transform: rotate(90deg); }
         .flower {
-            position: absolute; width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%;
-            box-shadow: 20px 0 0 var(--primary-color), -20px 0 0 var(--primary-color), 0 20px 0 var(--primary-color), 0 -20px 0 var(--primary-color);
+            position: absolute; width: 45px; height: 45px; background: var(--primary-color); border-radius: 50%;
+            box-shadow: 25px 0 0 var(--primary-color), -25px 0 0 var(--primary-color), 0 25px 0 var(--primary-color), 0 -25px 0 var(--primary-color);
         }
         .flower::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #ffeb3b; border-radius: 50%; }
 
-        /* --- หัวใจลอย --- */
+        /* --- หัวใจลอยพื้นหลัง --- */
         .falling-heart { position: absolute; top: -20px; color: var(--primary-color); user-select: none; pointer-events: none; animation: fall linear forwards; z-index: 0; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         /* --- ซองจดหมาย --- */
         .envelope-wrapper {
             position: relative; cursor: pointer; z-index: 10; transition: all 0.5s ease-in-out;
-            width: 280px; height: 180px; margin-top: 100px;
+            width: 300px; height: 200px; margin-top: 120px;
         }
         @media (min-width: 768px) { .envelope-wrapper { transform: scale(1.4); } }
         .envelope-wrapper.open { transform: scale(1.1) translateY(80px); }
@@ -47,50 +47,52 @@
             border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
         .envelope::before {
-            content: ""; position: absolute; top: 0; z-index: 4; border-top: 120px solid var(--primary-color);
-            border-left: 140px solid transparent; border-right: 140px solid transparent;
+            content: ""; position: absolute; top: 0; z-index: 4; border-top: 130px solid var(--primary-color);
+            border-left: 150px solid transparent; border-right: 150px solid transparent;
             transform-origin: top; transition: transform 0.5s 0.2s ease-in-out;
         }
         .envelope::after {
             content: ""; position: absolute; z-index: 3; width: 0; height: 0;
-            border-top: 100px solid transparent; border-right: 140px solid #ff8fa3;
-            border-bottom: 100px solid #ff8fa3; border-left: 140px solid #ff758f; border-radius: 0 0 15px 15px;
+            border-top: 110px solid transparent; border-right: 150px solid #ff8fa3;
+            border-bottom: 110px solid #ff8fa3; border-left: 150px solid #ff758f; border-radius: 0 0 15px 15px;
         }
 
         .letter {
             position: absolute; bottom: 5px; left: 5%; width: 90%; height: 95%; background: var(--paper-color);
             background-image: linear-gradient(#f1f1f1 1px, transparent 1px); background-size: 100% 25px;
-            text-align: center; padding: 30px 15px; box-sizing: border-box; transition: transform 0.7s ease-in-out;
-            z-index: 2; border-radius: 5px; box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.1); overflow-y: auto;
+            text-align: center; padding: 35px 15px; box-sizing: border-box; transition: transform 0.7s ease-in-out;
+            z-index: 2; border-radius: 10px; box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.1); overflow-y: auto;
         }
 
-        .letter h2 { color: var(--primary-color); font-size: 1.2rem; margin: 0 0 10px 0; }
-        .letter p { font-size: 0.95rem; color: #4a4a4a; line-height: 1.7; margin: 10px 0; }
+        .letter h2 { color: var(--primary-color); font-size: 1.3rem; margin: 0 0 15px 0; }
+        .letter p { font-size: 1rem; color: #4a4a4a; line-height: 1.8; margin: 10px 0; font-style: italic; }
 
         .heart-icon {
-            position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; background: #ff85a1;
+            position: absolute; top: 50%; left: 50%; width: 45px; height: 45px; background: #ff85a1;
             z-index: 5; transform: translate(-50%, -20%) rotate(45deg); border: 2px solid white;
         }
-        .heart-icon::before, .heart-icon::after { content: ""; position: absolute; width: 40px; height: 40px; background: #ff85a1; border-radius: 50%; }
-        .heart-icon::before { top: -20px; left: 0; }
-        .heart-icon::after { left: -20px; top: 0; }
+        .heart-icon::before, .heart-icon::after { content: ""; position: absolute; width: 45px; height: 45px; background: #ff85a1; border-radius: 50%; }
+        .heart-icon::before { top: -23px; left: 0; }
+        .heart-icon::after { left: -23px; top: 0; }
 
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .letter { transform: translateY(-240px); height: 350px; z-index: 6; }
+        .envelope-wrapper.open .letter { transform: translateY(-260px); height: 380px; z-index: 6; }
         .envelope-wrapper.open .heart-icon { opacity: 0; }
 
-        .instruction { position: absolute; bottom: 30px; color: #d63384; font-weight: bold; animation: blink 2s infinite; z-index: 11; text-align: center; }
+        .instruction { position: absolute; bottom: 40px; color: #d63384; font-weight: bold; animation: blink 2s infinite; z-index: 11; text-align: center; }
         @keyframes blink { 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <div id="player"></div>
+    <audio id="loveSong" loop>
+        <source src="https://www.dropbox.com/scl/fi/0yzut36n810lko43nc9fo/lostbeans-Official-MV.mp3?rlkey=zok5ltbygln07dhm8yp5aifha&st=2mrj19qy&dl=1" type="audio/mpeg">
+    </audio>
 
-    <div class="flower-bush top-l"><div class="flower" style="top:20px; left:20px;"></div></div>
-    <div class="flower-bush top-r"><div class="flower" style="top:20px; right:20px;"></div></div>
+    <div class="flower-bush top-l"><div class="flower" style="top:25px; left:25px;"></div></div>
+    <div class="flower-bush top-r"><div class="flower" style="top:25px; right:25px;"></div></div>
 
-    <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="envelope-wrapper" id="envelope">
         <div class="envelope">
             <div class="letter">
                 <h2>Happy Valentine! 💖</h2>
@@ -106,48 +108,24 @@
         </div>
     </div>
 
-    <div class="instruction">จิ้มเพื่อเปิดหัวใจนะ ❤️<br>(จิ้มแล้วรอเพลงแป๊บนึงน้า)</div>
+    <div class="instruction">จิ้มที่ซองจดหมายเพื่อเปิดนะ ❤️</div>
 
     <script>
-        // โหลด YouTube IFrame API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0',
-                width: '0',
-                videoId: 'afPnIMti1oo', // ID เพลง
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': 'afPnIMti1oo',
-                    'playsinline': 1 // สำคัญมากสำหรับ iPhone
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // พร้อมเล่นแต่ยังไม่เล่นจนกว่าจะกด
-        }
-
+        const envelope = document.getElementById('envelope');
+        const song = document.getElementById('loveSong');
         let musicStarted = false;
-        function openEnvelope() {
-            document.querySelector('.envelope-wrapper').classList.toggle('open');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('open');
             
-            if (!musicStarted && player && player.playVideo) {
-                player.playVideo();
+            // เล่นเพลงทันทีที่คลิกซองจดหมาย
+            if (!musicStarted) {
+                song.play().catch(e => console.log("Playback error:", e));
                 musicStarted = true;
             }
-        }
+        });
 
-        // หัวใจลอย
+        // สร้างหัวใจลอย
         setInterval(() => {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
